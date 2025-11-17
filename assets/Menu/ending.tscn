@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://6810udfr44bg"]
+
+[ext_resource type="Script" uid="uid://tyy4c4rs2m26" path="res://Menu/ending.gd" id="1_ovgyc"]
+[ext_resource type="PackedScene" uid="uid://wg1exht4vn6q" path="res://src/level.tscn" id="2_xmg0l"]
+[ext_resource type="FontFile" uid="uid://dt43i7vaaflx2" path="res://Fonts/murder.ttf" id="3_8gbke"]
+[ext_resource type="FontFile" uid="uid://tk7j60rvrjjw" path="res://Fonts/conjuring.ttf" id="4_g0g7f"]
+[ext_resource type="AudioStream" uid="uid://bkmss5txct8s6" path="res://audio/main_theme2.mp3" id="5_8fhow"]
+
+[node name="Ending" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ovgyc")
+game_scene = ExtResource("2_xmg0l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("3_8gbke")
+theme_override_font_sizes/font_size = 128
+text = "You won, for now..."
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_g0g7f")
+theme_override_font_sizes/font_size = 50
+text = "Play Again"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_g0g7f")
+theme_override_font_sizes/font_size = 50
+text = "Quit Game"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8fhow")
+autoplay = true

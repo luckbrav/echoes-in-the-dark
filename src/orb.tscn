@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnitfabuaks3p"]
+
+[ext_resource type="AudioStream" uid="uid://b82v8xfiqa0re" path="res://audio/sonar_ping_2.mp3" id="1_bgiok"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_406ju"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_406ju"]
+radius = 0.55
+
+[sub_resource type="Animation" id="Animation_406ju"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGSphere3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bgiok"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGSphere3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rj0qo"]
+_data = {
+&"Idle": SubResource("Animation_406ju"),
+&"RESET": SubResource("Animation_bgiok")
+}
+
+[node name="Orb" type="Area3D" groups=["Orb"]]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+use_collision = true
+radial_segments = 30
+rings = 30
+material = SubResource("StandardMaterial3D_406ju")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_406ju")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rj0qo")
+}
+autoplay = "Idle"
+speed_scale = 0.45
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+
+[node name="Sonar" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_bgiok")
+volume_db = -20.0
+autoplay = true
+max_distance = 8.0
